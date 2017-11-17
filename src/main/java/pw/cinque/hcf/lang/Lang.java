@@ -42,7 +42,7 @@ public class Lang {
             e.printStackTrace();
         }
     }
-    
+
     public String getMessage(String key, String... placeholders) {
         String message = messages.get(key);
 

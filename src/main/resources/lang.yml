@@ -3,3 +3,5 @@ command-player-only: '&cThis command can only be used by players.'
 command-invalid-args: '&cToo few arguments! Usage: &e{0}&c.'
 command-help-title: '&2&lHCF commands:'
 command-help-format: '&a/f {0} &7{1}' # Used for the list of sub-commands that is displayed when you use /f
+faction-name-taken: '&cA faction with the name &e{0} &calready exists!'
+faction-created: '&aSuccessfully created faction &e{0}&a.'
