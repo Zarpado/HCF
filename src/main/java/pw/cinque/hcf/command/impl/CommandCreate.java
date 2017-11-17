@@ -1,5 +1,6 @@
 package pw.cinque.hcf.command.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pw.cinque.hcf.HCFPlugin;
@@ -25,6 +26,24 @@ public class CommandCreate extends SubCommand {
         }
 
         String factionName = args[0];
+
+        if (!StringUtils.isAlphanumeric(factionName)) {
+            player.sendMessage(HCFPlugin.getLang().getMessage("faction-name-not-alphanumeric"));
+            return;
+        }
+
+        int minLength = HCFPlugin.getSettings().getValue("faction-name-min-length");
+        int maxLength = HCFPlugin.getSettings().getValue("faction-name-max-length");
+
+        if (factionName.length() < minLength) {
+            player.sendMessage(HCFPlugin.getLang().getMessage("faction-name-too-short", String.valueOf(minLength)));
+            return;
+        }
+
+        if (factionName.length() > maxLength) {
+            player.sendMessage(HCFPlugin.getLang().getMessage("faction-name-too-long", String.valueOf(maxLength)));
+            return;
+        }
 
         if (FactionManager.getInstance().getFactionByName(factionName) != null) {
             player.sendMessage(HCFPlugin.getLang().getMessage("faction-name-taken", factionName));
