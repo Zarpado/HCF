@@ -37,14 +37,12 @@ public class FactionsCommandExecutor implements CommandExecutor {
         }
 
         String subCommandName = args[0];
-        Optional<SubCommand> result = subCommands.stream().filter(cmd -> cmd.getName().equalsIgnoreCase(subCommandName)).findFirst();
+        SubCommand subCommand = subCommands.stream().filter(cmd -> cmd.getName().equalsIgnoreCase(subCommandName)).findFirst().orElse(null);
 
-        if (!result.isPresent()) {
+        if (subCommand == null) {
             sender.sendMessage(Lang.getInstance().getMessage("command-unknown", subCommandName));
             return true;
         }
-
-        SubCommand subCommand = result.get();
 
         if (subCommand.isPlayerOnly() && !(sender instanceof Player)) {
             sender.sendMessage(Lang.getInstance().getMessage("command-players-only"));
