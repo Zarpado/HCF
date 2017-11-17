@@ -2,12 +2,12 @@ package pw.cinque.hcf.command.impl;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import pw.cinque.hcf.HCFPlugin;
+import pw.cinque.hcf.command.SubCommand;
 import pw.cinque.hcf.faction.Faction;
 import pw.cinque.hcf.faction.FactionManager;
-import pw.cinque.hcf.command.SubCommand;
 import pw.cinque.hcf.faction.FactionPlayer;
 import pw.cinque.hcf.faction.FactionRole;
-import pw.cinque.hcf.lang.Lang;
 
 public class CommandCreate extends SubCommand {
 
@@ -20,21 +20,21 @@ public class CommandCreate extends SubCommand {
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            player.sendMessage(Lang.getInstance().getMessage("command-invalid-args", "/f create <faction name>"));
+            player.sendMessage(HCFPlugin.getLang().getMessage("command-invalid-args", "/f create <faction name>"));
             return;
         }
 
         String factionName = args[0];
 
         if (FactionManager.getInstance().getFactionByName(factionName) != null) {
-            player.sendMessage(Lang.getInstance().getMessage("faction-name-taken", factionName));
+            player.sendMessage(HCFPlugin.getLang().getMessage("faction-name-taken", factionName));
             return;
         }
 
         FactionPlayer fplayer = FactionPlayer.fromPlayer(player);
 
         if (fplayer.getFaction() != null) {
-            player.sendMessage(Lang.getInstance().getMessage("faction-already-member"));
+            player.sendMessage(HCFPlugin.getLang().getMessage("faction-already-member"));
             return;
         }
 
@@ -44,7 +44,7 @@ public class CommandCreate extends SubCommand {
         fplayer.setRole(FactionRole.OWNER);
 
         FactionManager.getInstance().register(faction);
-        player.sendMessage(Lang.getInstance().getMessage("faction-created", factionName));
+        player.sendMessage(HCFPlugin.getLang().getMessage("faction-created", factionName));
     }
 
 }

@@ -7,12 +7,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pw.cinque.hcf.HCFPlugin;
 import pw.cinque.hcf.command.impl.CommandCreate;
-import pw.cinque.hcf.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public class FactionsCommandExecutor implements CommandExecutor {
 
@@ -40,12 +38,12 @@ public class FactionsCommandExecutor implements CommandExecutor {
         SubCommand subCommand = subCommands.stream().filter(cmd -> cmd.getName().equalsIgnoreCase(subCommandName)).findFirst().orElse(null);
 
         if (subCommand == null) {
-            sender.sendMessage(Lang.getInstance().getMessage("command-unknown", subCommandName));
+            sender.sendMessage(HCFPlugin.getLang().getMessage("command-unknown", subCommandName));
             return true;
         }
 
         if (subCommand.isPlayerOnly() && !(sender instanceof Player)) {
-            sender.sendMessage(Lang.getInstance().getMessage("command-players-only"));
+            sender.sendMessage(HCFPlugin.getLang().getMessage("command-players-only"));
             return true;
         }
 
@@ -56,8 +54,8 @@ public class FactionsCommandExecutor implements CommandExecutor {
     }
 
     private void printHelp(CommandSender sender) {
-        sender.sendMessage(Lang.getInstance().getMessage("command-help-title"));
-        subCommands.forEach(subCommand -> sender.sendMessage(Lang.getInstance().getMessage("command-help-format", subCommand.getName(), subCommand.getDescription())));
+        sender.sendMessage(HCFPlugin.getLang().getMessage("command-help-title"));
+        subCommands.forEach(subCommand -> sender.sendMessage(HCFPlugin.getLang().getMessage("command-help-format", subCommand.getName(), subCommand.getDescription())));
     }
 
 }
