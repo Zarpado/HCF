@@ -32,6 +32,12 @@ public class CommandCreate extends SubCommand {
         }
 
         FactionPlayer fplayer = FactionPlayer.fromPlayer(player);
+
+        if (fplayer.getFaction() != null) {
+            player.sendMessage(Lang.getInstance().getMessage("faction-already-member"));
+            return;
+        }
+
         Faction faction = new Faction(factionName);
 
         faction.addMember(fplayer);
