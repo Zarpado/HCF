@@ -6,3 +6,6 @@ command-help-format: '&a/f {0} &7{1}' # Used for the list of sub-commands that i
 faction-name-taken: '&cA faction with the name &e{0} &calready exists!'
 faction-created: '&aSuccessfully created faction &e{0}&a.'
 faction-already-member: '&cTo create a new faction, you have to leave your current one first!'
+faction-name-too-short: '&cThe faction name cannot contain less than &e{0} &ccharacters!'
+faction-name-too-long: '&cThe faction name cannot contain more than &e{0} &ccharacters!'
+faction-name-not-alphanumeric: '&cThe faction name has to be alphanumeric!'
