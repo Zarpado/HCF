@@ -42,14 +42,7 @@ public class Lang {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Gets a message linked to the specified key
-     *
-     * @param key          The key linked to the message
-     * @param placeholders The values for the placeholders that should be set in the message
-     * @return The message linked to the specified key, or null if no message was found
-     */
+    
     public String getMessage(String key, String... placeholders) {
         String message = messages.get(key);
 
