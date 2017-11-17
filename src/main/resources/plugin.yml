@@ -1,0 +1,9 @@
+name: HCF
+author: Fyu
+description: Hardcore Factions plugin
+main: pw.cinque.hcf.HCFPlugin
+version: ${project.version}
+commands:
+  factions:
+    aliases: [faction, f]
+    description: Main factions command
