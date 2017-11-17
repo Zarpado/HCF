@@ -3,7 +3,8 @@ package pw.cinque.hcf;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import pw.cinque.hcf.command.FactionsCommandExecutor;
-import pw.cinque.hcf.lang.Lang;
+import pw.cinque.hcf.config.Config;
+import pw.cinque.hcf.config.Lang;
 
 import java.io.File;
 
@@ -11,14 +12,17 @@ public class HCFPlugin extends JavaPlugin {
 
     @Getter
     private static HCFPlugin instance;
-
-    public HCFPlugin() {
-        instance = this;
-    }
+    @Getter
+    private static Config config;
+    @Getter
+    private static Lang lang;
 
     @Override
     public void onEnable() {
-        Lang.getInstance().load(new File(getDataFolder(), "lang.yml"));
+        instance = this;
+        config = new Config(new File(getDataFolder(), "config.yml"));
+        lang = new Lang(new File(getDataFolder(), "lang.yml"));
+
         FactionsCommandExecutor.getInstance().register();
     }
 
