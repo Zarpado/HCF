@@ -32,6 +32,7 @@ public class Faction {
     public void addMember(FactionPlayer player) {
         this.members.add(player);
         player.setFaction(this);
+        player.setRole(FactionRole.MEMBER);
     }
 
     /**
