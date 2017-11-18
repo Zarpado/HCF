@@ -7,3 +7,6 @@ commands:
   factions:
     aliases: [faction, f]
     description: Main factions command
+permissions:
+  hcf.disbandothers:
+    description: Allows the user to disband other factions

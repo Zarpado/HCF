@@ -1,7 +1,6 @@
 package pw.cinque.hcf;
 
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import pw.cinque.hcf.command.FactionsCommandExecutor;

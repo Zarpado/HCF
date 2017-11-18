@@ -4,6 +4,7 @@ commands:
   invalid-args: '&cToo few arguments! Usage: &e{0}&c.'
   help-title: '&2&lHCF commands:'
   help-format: '&a/f {0} &7{1}'
+  no-permission: '&cYou are not allowed to &c{0}&c!'
 factions:
   name-taken: '&cA faction with the name &e{0} &calready exists!'
   created: '&aSuccessfully created faction &e{0}&a.'
@@ -11,3 +12,6 @@ factions:
   name-too-short: '&cThe faction name cannot contain less than &e{0} &ccharacters!'
   name-too-long: '&cThe faction name cannot contain more than &e{0} &ccharacters!'
   name-not-alphanumeric: '&cThe faction name has to be alphanumeric!'
+  not-found: '&cNo faction with the name &e{0} &cfound!'
+  not-member: '&cYou are currently not a member of any faction!'
+  disbanded: '&aSuccessfully disbanded faction &e{0}&a.'
