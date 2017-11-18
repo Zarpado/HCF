@@ -25,6 +25,13 @@ public class CommandCreate extends SubCommand {
             return;
         }
 
+        FactionPlayer fplayer = FactionPlayer.fromPlayer(player);
+
+        if (fplayer.getFaction() != null) {
+            player.sendMessage(HCFPlugin.getLang().getMessage("faction-already-member"));
+            return;
+        }
+
         String factionName = args[0];
 
         if (!StringUtils.isAlphanumeric(factionName)) {
@@ -47,13 +54,6 @@ public class CommandCreate extends SubCommand {
 
         if (FactionManager.getInstance().getFactionByName(factionName) != null) {
             player.sendMessage(HCFPlugin.getLang().getMessage("faction-name-taken", factionName));
-            return;
-        }
-
-        FactionPlayer fplayer = FactionPlayer.fromPlayer(player);
-
-        if (fplayer.getFaction() != null) {
-            player.sendMessage(HCFPlugin.getLang().getMessage("faction-already-member"));
             return;
         }
 
