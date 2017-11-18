@@ -43,14 +43,7 @@ public class FactionPlayer {
      * @return The {@link FactionPlayer}
      */
     public static FactionPlayer fromOfflinePlayer(UUID uniqueId, String name) {
-        if (!players.containsKey(uniqueId)) {
-            FactionPlayer fplayer = new FactionPlayer(uniqueId, name);
-            players.put(uniqueId, fplayer);
-
-            return fplayer;
-        }
-
-        return players.get(uniqueId);
+        return players.computeIfAbsent(uniqueId, key -> new FactionPlayer(uniqueId, name));
     }
 
     /**
