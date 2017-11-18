@@ -1,4 +1,4 @@
-package pw.cinque.hcf.faction;
+package pw.cinque.hcf;
 
 public enum FactionRole {
 

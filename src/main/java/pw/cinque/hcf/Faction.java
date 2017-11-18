@@ -1,4 +1,4 @@
-package pw.cinque.hcf.faction;
+package pw.cinque.hcf;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

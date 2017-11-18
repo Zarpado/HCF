@@ -1,5 +1,6 @@
-package pw.cinque.hcf.faction;
+package pw.cinque.hcf;
 
+import com.google.common.collect.MapMaker;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,15 +10,16 @@ import org.bukkit.entity.Player;
 
 import java.util.Map;
 import java.util.UUID;
-import java.util.WeakHashMap;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class FactionPlayer {
 
-    private static Map<Player, FactionPlayer> players = new WeakHashMap<>();
+    private static Map<UUID, FactionPlayer> players = new MapMaker().weakValues().makeMap();
 
     @Getter
     private final UUID uniqueId;
+    @Getter
+    private final String name;
     @Setter(value = AccessLevel.PACKAGE)
     private Faction faction;
     @Setter
@@ -30,11 +32,25 @@ public class FactionPlayer {
      * @return The {@link FactionPlayer}
      */
     public static FactionPlayer fromPlayer(Player player) {
-        if (!players.containsKey(player)) {
-            players.put(player, new FactionPlayer(player.getUniqueId()));
+        return fromOfflinePlayer(player.getUniqueId(), player.getName());
+    }
+
+    /**
+     * Gets the {@link FactionPlayer} for a a certain UUID and username
+     *
+     * @param uniqueId The player's UUID
+     * @param name     The player's username
+     * @return The {@link FactionPlayer}
+     */
+    public static FactionPlayer fromOfflinePlayer(UUID uniqueId, String name) {
+        if (!players.containsKey(uniqueId)) {
+            FactionPlayer fplayer = new FactionPlayer(uniqueId, name);
+            players.put(uniqueId, fplayer);
+
+            return fplayer;
         }
 
-        return players.get(player);
+        return players.get(uniqueId);
     }
 
     /**

@@ -5,10 +5,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pw.cinque.hcf.HCFPlugin;
 import pw.cinque.hcf.command.SubCommand;
-import pw.cinque.hcf.faction.Faction;
-import pw.cinque.hcf.faction.FactionManager;
-import pw.cinque.hcf.faction.FactionPlayer;
-import pw.cinque.hcf.faction.FactionRole;
+import pw.cinque.hcf.Faction;
+import pw.cinque.hcf.FactionManager;
+import pw.cinque.hcf.FactionPlayer;
+import pw.cinque.hcf.FactionRole;
 
 public class CommandCreate extends SubCommand {
 
