@@ -9,20 +9,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class Config {
 
     private Map<String, Object> values = new HashMap<>();
 
     public Config(File file) {
+        YamlConfiguration defaults = new YamlConfiguration();
         YamlConfiguration configuration = new YamlConfiguration();
 
         try {
+            defaults.load(new InputStreamReader(HCFPlugin.getInstance().getResource(file.getName())));
+
             if (file.exists()) {
-                configuration.load(file); // load from disk
-            } else {
-                configuration.load(new InputStreamReader(HCFPlugin.getInstance().getResource(file.getName()))); // use defaults
+                configuration.load(file);
             }
+
+            Predicate<String> isSet = configuration::isSet;
+            defaults.getKeys(false).stream().filter(isSet.negate()).forEach(key -> configuration.set(key, defaults.get(key)));
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
