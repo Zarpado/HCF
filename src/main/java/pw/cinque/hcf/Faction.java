@@ -42,6 +42,7 @@ public class Faction {
     public void removeMember(FactionPlayer player) {
         this.members.remove(player);
         player.setFaction(null);
+        player.setRole(null);
     }
 
 }
