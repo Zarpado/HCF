@@ -29,7 +29,7 @@ public class CommandDisband extends SubCommand {
                 sender.sendMessage(HCFPlugin.getLang().getMessage("factions.not-found", args[0]));
                 return;
             }
-        } else if (!(sender instanceof Player)) { // allow disbanding factions from console
+        } else if (!(sender instanceof Player)) {
             sender.sendMessage(HCFPlugin.getLang().getMessage("commands.invalid-args", "/f disband <faction name>"));
             return;
         } else {
