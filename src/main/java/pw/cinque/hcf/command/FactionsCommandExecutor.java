@@ -38,12 +38,12 @@ public class FactionsCommandExecutor implements CommandExecutor {
         SubCommand subCommand = subCommands.stream().filter(cmd -> cmd.getName().equalsIgnoreCase(subCommandName)).findFirst().orElse(null);
 
         if (subCommand == null) {
-            sender.sendMessage(HCFPlugin.getLang().getMessage("command-unknown", subCommandName));
+            sender.sendMessage(HCFPlugin.getLang().getMessage("commands.unknown", subCommandName));
             return true;
         }
 
         if (subCommand.isPlayerOnly() && !(sender instanceof Player)) {
-            sender.sendMessage(HCFPlugin.getLang().getMessage("command-players-only"));
+            sender.sendMessage(HCFPlugin.getLang().getMessage("commands.players-only"));
             return true;
         }
 
@@ -54,8 +54,8 @@ public class FactionsCommandExecutor implements CommandExecutor {
     }
 
     private void printHelp(CommandSender sender) {
-        sender.sendMessage(HCFPlugin.getLang().getMessage("command-help-title"));
-        subCommands.forEach(subCommand -> sender.sendMessage(HCFPlugin.getLang().getMessage("command-help-format", subCommand.getName(), subCommand.getDescription())));
+        sender.sendMessage(HCFPlugin.getLang().getMessage("commands.help-title"));
+        subCommands.forEach(subCommand -> sender.sendMessage(HCFPlugin.getLang().getMessage("commands.help-format", subCommand.getName(), subCommand.getDescription())));
     }
 
 }

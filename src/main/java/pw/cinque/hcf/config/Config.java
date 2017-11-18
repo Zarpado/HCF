@@ -1,5 +1,6 @@
 package pw.cinque.hcf.config;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import pw.cinque.hcf.HCFPlugin;
@@ -32,12 +33,22 @@ public class Config {
             e.printStackTrace();
         }
 
-        configuration.getKeys(false).forEach(key -> values.put(key, configuration.get(key)));
+        configuration.getKeys(false).forEach(key -> checkKey(configuration, key));
 
         try {
             configuration.save(file);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void checkKey(ConfigurationSection section, String key) {
+        if (section.isConfigurationSection(key)) {
+            ConfigurationSection subSection = section.getConfigurationSection(key);
+            subSection.getKeys(false).forEach(subKey -> checkKey(subSection, subKey));
+        } else {
+            String valueName = section.getParent() == null ? key : (section.getCurrentPath() + "." + key);
+            this.values.put(valueName, section.get(key));
         }
     }
 

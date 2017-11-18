@@ -21,39 +21,39 @@ public class CommandCreate extends SubCommand {
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            player.sendMessage(HCFPlugin.getLang().getMessage("command-invalid-args", "/f create <faction name>"));
+            player.sendMessage(HCFPlugin.getLang().getMessage("commands.invalid-args", "/f create <faction name>"));
             return;
         }
 
         FactionPlayer fplayer = FactionPlayer.fromPlayer(player);
 
         if (fplayer.getFaction() != null) {
-            player.sendMessage(HCFPlugin.getLang().getMessage("faction-already-member"));
+            player.sendMessage(HCFPlugin.getLang().getMessage("factions.already-member"));
             return;
         }
 
         String factionName = args[0];
 
         if (!StringUtils.isAlphanumeric(factionName)) {
-            player.sendMessage(HCFPlugin.getLang().getMessage("faction-name-not-alphanumeric"));
+            player.sendMessage(HCFPlugin.getLang().getMessage("factions.name-not-alphanumeric"));
             return;
         }
 
-        int minLength = HCFPlugin.getSettings().getValue("faction-name-min-length");
-        int maxLength = HCFPlugin.getSettings().getValue("faction-name-max-length");
+        int minLength = HCFPlugin.getSettings().getValue("factions.name-min-length");
+        int maxLength = HCFPlugin.getSettings().getValue("factions.name-max-length");
 
         if (factionName.length() < minLength) {
-            player.sendMessage(HCFPlugin.getLang().getMessage("faction-name-too-short", String.valueOf(minLength)));
+            player.sendMessage(HCFPlugin.getLang().getMessage("factions.name-too-short", String.valueOf(minLength)));
             return;
         }
 
         if (factionName.length() > maxLength) {
-            player.sendMessage(HCFPlugin.getLang().getMessage("faction-name-too-long", String.valueOf(maxLength)));
+            player.sendMessage(HCFPlugin.getLang().getMessage("factions.name-too-long", String.valueOf(maxLength)));
             return;
         }
 
         if (FactionManager.getInstance().getFactionByName(factionName) != null) {
-            player.sendMessage(HCFPlugin.getLang().getMessage("faction-name-taken", factionName));
+            player.sendMessage(HCFPlugin.getLang().getMessage("factions.name-taken", factionName));
             return;
         }
 
@@ -63,7 +63,7 @@ public class CommandCreate extends SubCommand {
         fplayer.setRole(FactionRole.OWNER);
 
         FactionManager.getInstance().register(faction);
-        player.sendMessage(HCFPlugin.getLang().getMessage("faction-created", factionName));
+        player.sendMessage(HCFPlugin.getLang().getMessage("factions.created", factionName));
     }
 
 }
