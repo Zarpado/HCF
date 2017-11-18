@@ -27,8 +27,7 @@ public class Config {
                 configuration.load(file);
             }
 
-            Predicate<String> isSet = configuration::isSet;
-            defaults.getKeys(false).stream().filter(isSet.negate()).forEach(key -> configuration.set(key, defaults.get(key)));
+            defaults.getKeys(false).forEach(key -> checkDefaultKey(defaults, configuration, key));
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
@@ -39,6 +38,16 @@ public class Config {
             configuration.save(file);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void checkDefaultKey(ConfigurationSection section, YamlConfiguration configuration, String key) {
+        if (section.isConfigurationSection(key)) {
+            ConfigurationSection subSection = section.getConfigurationSection(key);
+            subSection.getKeys(false).forEach(subKey -> checkDefaultKey(subSection, configuration, subKey));
+        } else {
+            String path = section.getParent() == null ? key : (section.getCurrentPath() + "." + key);
+            configuration.set(path, section.get(key));
         }
     }
 
