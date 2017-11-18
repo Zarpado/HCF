@@ -43,7 +43,7 @@ public class FactionsCommandExecutor implements CommandExecutor {
         }
 
         if (subCommand.isPlayerOnly() && !(sender instanceof Player)) {
-            sender.sendMessage(HCFPlugin.getLang().getMessage("commands.players-only"));
+            sender.sendMessage(HCFPlugin.getLang().getMessage("commands.player-only"));
             return true;
         }
 
