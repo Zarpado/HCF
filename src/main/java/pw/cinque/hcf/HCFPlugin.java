@@ -1,7 +1,9 @@
 package pw.cinque.hcf;
 
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import pw.cinque.hcf.command.FactionsCommandExecutor;
 import pw.cinque.hcf.config.Config;
 import pw.cinque.hcf.config.Lang;
@@ -25,11 +27,26 @@ public class HCFPlugin extends JavaPlugin {
 
         FactionsCommandExecutor.getInstance().register();
         FactionManager.getInstance().loadFactions(new File(getDataFolder(), "factions.yml"));
+
+        startSaveTask();
     }
 
     @Override
     public void onDisable() {
         FactionManager.getInstance().saveFactions(new File(getDataFolder(), "factions.yml"));
+    }
+
+    private void startSaveTask() {
+        int saveInterval = settings.getValue("save-interval");
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                FactionManager.getInstance().saveFactions(new File(getDataFolder(), "factions.yml"));
+            }
+
+        }.runTaskTimer(this, saveInterval * 20L, saveInterval * 20L);
     }
 
 }
