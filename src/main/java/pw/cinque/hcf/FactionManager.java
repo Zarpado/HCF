@@ -46,16 +46,26 @@ public class FactionManager {
             Faction faction = new FactionImpl(factionName);
 
             ConfigurationSection factionSection = configuration.getConfigurationSection(factionName);
-            ConfigurationSection membersSection = factionSection.getConfigurationSection("members");
 
-            membersSection.getKeys(false).forEach(uuid -> {
+            for (FactionRole role : FactionRole.values()) {
+                if (!factionSection.isSet(role.name())) {
+                    continue;
+                }
 
-                UUID uniqueId = UUID.fromString(uuid);
-                String name = membersSection.getString(uuid);
+                ConfigurationSection roleSection = factionSection.getConfigurationSection(role.name());
 
-                faction.addMember(PlayerManager.getInstance().getFactionPlayer(uniqueId, name));
+                roleSection.getKeys(false).forEach(uuid -> {
 
-            });
+                    UUID uniqueId = UUID.fromString(uuid);
+                    String name = roleSection.getString(uuid);
+
+                    FactionPlayer member = PlayerManager.getInstance().getFactionPlayer(uniqueId, name);
+                    member.setRole(role);
+
+                    faction.addMember(member);
+
+                });
+            }
 
             this.factions.add(faction);
 
@@ -70,9 +80,11 @@ public class FactionManager {
         this.factions.forEach(faction -> {
 
             ConfigurationSection factionSection = configuration.createSection(faction.getName());
-            ConfigurationSection membersSection = factionSection.createSection("members");
 
-            faction.getMembers().forEach(member -> membersSection.set(member.getUniqueId().toString(), member.getName()));
+            for (FactionRole role : FactionRole.values()) {
+                ConfigurationSection roleSection = factionSection.createSection(role.name());
+                faction.getMembers().stream().filter(member -> member.getRole() == role).forEach(member -> roleSection.set(member.getUniqueId().toString(), member.getName()));
+            }
 
         });
 

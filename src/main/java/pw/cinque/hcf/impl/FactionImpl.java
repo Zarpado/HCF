@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import pw.cinque.hcf.Faction;
 import pw.cinque.hcf.FactionPlayer;
-import pw.cinque.hcf.FactionRole;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +24,6 @@ public class FactionImpl implements Faction {
     public void addMember(FactionPlayer player) {
         this.members.add(player);
         player.setFaction(this);
-        player.setRole(FactionRole.MEMBER);
     }
 
     public void removeMember(FactionPlayer player) {
