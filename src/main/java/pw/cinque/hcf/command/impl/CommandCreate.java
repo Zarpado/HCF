@@ -4,11 +4,13 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pw.cinque.hcf.HCFPlugin;
+import pw.cinque.hcf.PlayerManager;
 import pw.cinque.hcf.command.SubCommand;
 import pw.cinque.hcf.Faction;
 import pw.cinque.hcf.FactionManager;
 import pw.cinque.hcf.FactionPlayer;
 import pw.cinque.hcf.FactionRole;
+import pw.cinque.hcf.impl.FactionImpl;
 
 public class CommandCreate extends SubCommand {
 
@@ -25,7 +27,7 @@ public class CommandCreate extends SubCommand {
             return;
         }
 
-        FactionPlayer fplayer = FactionPlayer.fromPlayer(player);
+        FactionPlayer fplayer = PlayerManager.getInstance().getFactionPlayer(player);
 
         if (fplayer.getFaction() != null) {
             player.sendMessage(HCFPlugin.getLang().getMessage("factions.already-member"));
@@ -57,7 +59,7 @@ public class CommandCreate extends SubCommand {
             return;
         }
 
-        Faction faction = new Faction(factionName);
+        Faction faction = new FactionImpl(factionName);
 
         faction.addMember(fplayer);
         fplayer.setRole(FactionRole.OWNER);

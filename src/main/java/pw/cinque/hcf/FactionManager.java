@@ -1,14 +1,15 @@
 package pw.cinque.hcf;
 
+import com.google.common.collect.ImmutableSet;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import pw.cinque.hcf.impl.FactionImpl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -42,7 +43,7 @@ public class FactionManager {
 
         configuration.getKeys(false).forEach(factionName -> {
 
-            Faction faction = new Faction(factionName);
+            Faction faction = new FactionImpl(factionName);
 
             ConfigurationSection factionSection = configuration.getConfigurationSection(factionName);
             ConfigurationSection membersSection = factionSection.getConfigurationSection("members");
@@ -52,7 +53,7 @@ public class FactionManager {
                 UUID uniqueId = UUID.fromString(uuid);
                 String name = membersSection.getString(uuid);
 
-                faction.addMember(FactionPlayer.fromOfflinePlayer(uniqueId, name));
+                faction.addMember(PlayerManager.getInstance().getFactionPlayer(uniqueId, name));
 
             });
 
@@ -90,7 +91,7 @@ public class FactionManager {
      * @return A set containing all {@link Faction}'s
      */
     public Set<Faction> getAllFactions() {
-        return Collections.unmodifiableSet(factions);
+        return ImmutableSet.copyOf(factions);
     }
 
     /**

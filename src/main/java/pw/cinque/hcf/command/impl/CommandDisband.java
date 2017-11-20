@@ -7,6 +7,7 @@ import pw.cinque.hcf.FactionManager;
 import pw.cinque.hcf.FactionPlayer;
 import pw.cinque.hcf.FactionRole;
 import pw.cinque.hcf.HCFPlugin;
+import pw.cinque.hcf.PlayerManager;
 import pw.cinque.hcf.command.SubCommand;
 
 public class CommandDisband extends SubCommand {
@@ -33,7 +34,7 @@ public class CommandDisband extends SubCommand {
             sender.sendMessage(HCFPlugin.getLang().getMessage("commands.invalid-args", "/f disband <faction name>"));
             return;
         } else {
-            FactionPlayer fplayer = FactionPlayer.fromPlayer((Player) sender);
+            FactionPlayer fplayer = PlayerManager.getInstance().getFactionPlayer((Player) sender);
 
             if ((faction = fplayer.getFaction()) == null) {
                 sender.sendMessage(HCFPlugin.getLang().getMessage("factions.not-member"));
