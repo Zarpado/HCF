@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.scheduler.BukkitRunnable;
 import pw.cinque.hcf.impl.FactionImpl;
 
 import java.io.File;
@@ -72,6 +73,7 @@ public class FactionManager {
         });
 
         HCFPlugin.getInstance().getLogger().info("Loaded " + factions.size() + " factions from disk.");
+        startSaveTask(file);
     }
 
     void saveFactions(File file) {
@@ -95,6 +97,19 @@ public class FactionManager {
             e.printStackTrace();
             HCFPlugin.getInstance().getLogger().warning("Failed to save factions to disk!");
         }
+    }
+
+    private void startSaveTask(File file) {
+        int saveInterval = HCFPlugin.getSettings().getValue("save-interval");
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                FactionManager.getInstance().saveFactions(file);
+            }
+
+        }.runTaskTimer(HCFPlugin.getInstance(), saveInterval * 20L, saveInterval * 20L);
     }
 
     /**
