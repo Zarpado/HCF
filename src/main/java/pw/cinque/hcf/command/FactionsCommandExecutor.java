@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import pw.cinque.hcf.HCFPlugin;
 import pw.cinque.hcf.command.impl.CommandCreate;
 import pw.cinque.hcf.command.impl.CommandDisband;
+import pw.cinque.hcf.command.impl.CommandInvite;
+import pw.cinque.hcf.command.impl.CommandJoin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +25,8 @@ public class FactionsCommandExecutor implements CommandExecutor {
     private FactionsCommandExecutor() {
         this.subCommands.add(new CommandCreate());
         this.subCommands.add(new CommandDisband());
+        this.subCommands.add(new CommandInvite());
+        this.subCommands.add(new CommandJoin());
     }
 
     public void register() {

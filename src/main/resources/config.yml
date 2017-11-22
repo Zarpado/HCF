@@ -2,3 +2,4 @@ factions:
   name-min-length: 4
   name-max-length: 20
 save-interval: 600
+invite-expiration-time: 30
