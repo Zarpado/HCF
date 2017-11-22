@@ -1,6 +1,5 @@
 package pw.cinque.hcf.command;
 
-import lombok.Getter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,20 +16,13 @@ import java.util.List;
 
 public class FactionsCommandExecutor implements CommandExecutor {
 
-    @Getter
-    private static final FactionsCommandExecutor instance = new FactionsCommandExecutor();
-
     private List<SubCommand> subCommands = new ArrayList<>();
 
-    private FactionsCommandExecutor() {
+    public FactionsCommandExecutor() {
         this.subCommands.add(new CommandCreate());
         this.subCommands.add(new CommandDisband());
         this.subCommands.add(new CommandInvite());
         this.subCommands.add(new CommandJoin());
-    }
-
-    public void register() {
-        HCFPlugin.getInstance().getCommand("factions").setExecutor(this);
     }
 
     @Override

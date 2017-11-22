@@ -24,7 +24,7 @@ public class HCFPlugin extends JavaPlugin {
         settings = new Config(new File(getDataFolder(), "config.yml"));
         lang = new Lang(new File(getDataFolder(), "lang.yml"));
 
-        FactionsCommandExecutor.getInstance().register();
+        getCommand("factions").setExecutor(new FactionsCommandExecutor());
         FactionManager.getInstance().loadFactions(new File(getDataFolder(), "factions.yml"));
     }
 
