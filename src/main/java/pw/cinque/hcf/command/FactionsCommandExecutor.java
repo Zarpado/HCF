@@ -28,7 +28,8 @@ public class FactionsCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            printHelp(sender);
+            sender.sendMessage(HCFPlugin.getLang().getMessage("commands.help-title"));
+            subCommands.forEach(subCommand -> sender.sendMessage(HCFPlugin.getLang().getMessage("commands.help-format", subCommand.getName(), subCommand.getDescription())));
             return true;
         }
 
@@ -49,11 +50,6 @@ public class FactionsCommandExecutor implements CommandExecutor {
         subCommand.onCommand(sender, subArgs);
 
         return true;
-    }
-
-    private void printHelp(CommandSender sender) {
-        sender.sendMessage(HCFPlugin.getLang().getMessage("commands.help-title"));
-        subCommands.forEach(subCommand -> sender.sendMessage(HCFPlugin.getLang().getMessage("commands.help-format", subCommand.getName(), subCommand.getDescription())));
     }
 
 }
