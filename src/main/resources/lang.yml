@@ -16,7 +16,6 @@ factions:
   not-found: '&cNo faction with the name &e{0} &cfound!'
   not-member: '&cYou are currently not a member of any faction!'
   disbanded: '&aSuccessfully disbanded faction &e{0}&a.'
-  already-member-other: '&e{0} &cis already a member of another faction!'
   invite-cooldown: '&cPlease wait before sending another invite to &e{0}&c!'
   invite-self: '&cYou cannot invite yourself!'
   invited: '&aSuccessfully invited &e{0}&a.'
